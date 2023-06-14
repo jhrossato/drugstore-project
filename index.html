@@ -15,9 +15,9 @@
       <nav class="navbar navbar-expand-lg justify-content-center">
         <div class="container row">
             <div class="col-2 border border-dark rounded">
-                <a class="navbar-brand m-0 p-0 d-flex align-items-center justify-content-around" href="#">
-                    <img src="../../images/logo.jpg" alt="Logo" width="50" class="h-100 d-inline-block align-text-top">
-                    <div class="">
+                <a id="home-page" class="navbar-brand m-0 p-0 d-flex align-items-center justify-content-around"  href="/home">
+                    <img src="/src/images/logo.jpg" alt="Logo" width="50" class="h-100 d-inline-block align-text-top" style="pointer-events: none;">
+                    <div style="pointer-events: none;">
                         <h4 class="brand-title m-0">Heisenberg's</h4>
                         <h5 class="brand-title m-0">Drugstore</h5>
                     </div>
@@ -27,16 +27,16 @@
                 <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Medicamentos</a>
+                        <a id="medicamentos-page" class="nav-link active" aria-current="page" href="/medicamentos">Medicamentos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Beleza</a>
+                        <a class="nav-link active" aria-current="page" href="/beleza">Beleza</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Dermocosméticos</a>
+                        <a class="nav-link active" aria-current="page" href="/dermocosmeticos">Dermocosméticos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Higiene</a>
+                        <a class="nav-link active" aria-current="page" href="/higiene">Higiene</a>
                     </li>
                     </ul>
                     <form class="d-flex justify-content-start" role="search">
@@ -56,7 +56,23 @@
             </div>
         </div>
       </nav>
+
+      <section id="root">
+        <div id="main-page" class="container"></div>
+      </section>
+
+      <footer class="bg-light text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3">
+          © 2023 Copyright:
+          <a class="text-dark" href="#">heisenbergsdrugstore.com</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+    
+        <script src="/bootstrap-5.3.0-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/src/js/index.js"></script>
+        <script src="/route.js"></script>
 </body>
 
-<script src="/bootstrap-5.3.0-dist/js/bootstrap.bundle.min.js"></script>
 </html>

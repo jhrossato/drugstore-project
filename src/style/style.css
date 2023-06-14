@@ -2,6 +2,13 @@
     background-color: #f4f4f6;
 }
 
+footer {
+    background-color: #f4f4f6;
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+
 .brand-title{
     font-family: 'Shadows Into Light', cursive;
 }
