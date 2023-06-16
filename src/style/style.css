@@ -12,3 +12,7 @@ footer {
 .brand-title{
     font-family: 'Shadows Into Light', cursive;
 }
+
+.vh-100 {
+    min-height: 100vh;
+}

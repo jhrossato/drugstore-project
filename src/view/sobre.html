@@ -1,0 +1,39 @@
+
+
+
+<section class="row justify-content-around mt-5">
+    <section class="col-8">
+        <section>
+            <p class="text-justify">Olá eu sou o João, estudante de Engenharia de Software.</p>
+            <p class="text-justify">
+                Por favor, sinta-se livre para enviar criticas e sugestões sobre meu trabalho.
+                Muito obrigado por utilizar a plataforma, até mais!
+            </p>
+        </section>
+        <section class="row justify-content-around">
+            <section class="col-8">
+                <form action="https://api.staticforms.xyz/submit" method="post">
+                    <input type="hidden" name="accessKey" value="d677818b-7582-4cdd-bd8f-0c9654eef031">
+                    <input type="hidden" name="subject" value="Email de sugestão ou crítica de heisenbergsdrugstore.com" />
+                    <input type="hidden" name="redirectTo" value="localhost:5500">
+        
+                    <div class="form-group mt-1">
+                        <label for="name">Nome</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Seu nome">
+                    </div>
+                    <div class="form-group mt-1">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Seu email">
+                    </div>
+                    <div class="form-group mt-1">
+                        <label for="campotexto">Digite sua sugestão ou crítica</label>
+                        <textarea class="form-control" id="campotexto"  name="message" rows="3"></textarea>
+                      </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary mt-2 w-50">Enviar</button>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </section>
+</section>

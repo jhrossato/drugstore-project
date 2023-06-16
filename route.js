@@ -1,7 +1,7 @@
-document.addEventListener("click", (e) => {
-    e.preventDefault();
-    route(e);
-});
+// document.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     route(e);
+// });
 
 const route = (event) => {
     event = event || window.event;
@@ -18,6 +18,9 @@ const routes = {
     '/beleza': '/src/view/beleza.html',
     '/dermocosmeticos': '/src/view/dermocosmeticos.html',
     '/higiene': '/src/view/higiene.html',
+    '/conteudo': '/src/view/conteudo.html',
+    '/tecnologia': '/src/view/tecnologia.html',
+    '/sobre': '/src/view/sobre.html',
 }
 
 const root = document.getElementById('main-page');
