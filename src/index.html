@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/bootstrap-5.3.0-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/src/style/style.css" rel="stylesheet">
+    <link href="./style/bootstrap.css" rel="stylesheet">
+    <link href="./style/style.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
@@ -15,8 +15,8 @@
       <nav class="navbar navbar-expand-lg justify-content-center">
         <div class="container row">
             <div class="col-2 border border-dark rounded">
-                <a id="home-page" class="navbar-brand m-0 p-0 d-flex align-items-center justify-content-around" onclick="route()"  href="/">
-                    <img src="/src/images/logo.jpg" alt="Logo" width="50" class="h-100 d-inline-block align-text-top" style="pointer-events: none;">
+                <a id="home-page" class="navbar-brand m-0 p-0 d-flex align-items-center justify-content-around" href="/#">
+                    <img src="./images/logo.jpg" alt="Logo" width="50" class="h-100 d-inline-block align-text-top" style="pointer-events: none;">
                     <div style="pointer-events: none;">
                         <h4 class="brand-title m-0">Heisenberg's</h4>
                         <h5 class="brand-title m-0">Drugstore</h5>
@@ -27,16 +27,16 @@
                 <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a id="medicamentos-page" class="nav-link active" aria-current="page" onclick="route()" href="/medicamentos">Medicamentos</a>
+                        <a id="medicamentos-page" class="nav-link active" href="/#medicamentos">Medicamentos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" onclick="route()" href="/beleza">Beleza</a>
+                        <a class="nav-link active" href="/#beleza">Beleza</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" onclick="route()" href="/dermocosmeticos">Dermocosméticos</a>
+                        <a class="nav-link active" href="/#dermocosmeticos">Dermocosméticos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" onclick="route()" href="/higiene">Higiene</a>
+                        <a class="nav-link active" href="/#higiene">Higiene</a>
                     </li>
                     </ul>
                     <form class="d-flex justify-content-start" role="search">
@@ -48,18 +48,17 @@
             <div class="col-2 p-2">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Cadastre-se</a>
+                        <a class="nav-link active" href="#">Cadastre-se</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Entrar</a>
+                        <a class="nav-link active" href="/#login">Entrar</a>
                     </li>
             </div>
         </div>
       </nav>
 
-      <section id="root">
-        <div id="main-page" class="container"></div>
-      </section>
+      <main id="root" class="container">
+      </main>
 
       <footer class="bg-light text-center text-lg-start">
         <!-- Copyright -->
@@ -69,10 +68,11 @@
         </div>
         <!-- Copyright -->
       </footer>
-    
-        <script src="/bootstrap-5.3.0-dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/src/js/index.js"></script>
-        <script src="/route.js"></script>
+
+      <!-- <script src="../bootstrap-5.3.0-dist/js/bootstrap." type="application/json"></script> -->
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/index.js"></script>
+        <script src="./route.js" type="module"></script>
 </body>
 
 </html>
