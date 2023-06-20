@@ -1,15 +1,39 @@
 import home from './view/home/index.js';
+import login from './view/login/index.js';
+import conteudo from './view/conteudo/index.js';
+import tecnologia from './view/tecnologia/index.js';
+import sobre from './view/sobre/index.js';
 
 const main = document.querySelector("#root");
 
 const init = () => {
     window.addEventListener("hashchange", () =>{
-        console.log(window.location.hash)
+        let locationHash = window.location.hash;
+        switch (locationHash) {
+            case '':
+                main.replaceChildren(home());
+                break;
+            case '#entrar':
+                main.replaceChildren(login());
+                    break;
+            case '#conteudo':
+                main.replaceChildren(conteudo());
+                break;
+            case '#tecnologia':
+                main.replaceChildren(tecnologia());
+                break;
+            case '#sobre':
+                main.replaceChildren(sobre());
+                break;  
+            default:
+              console.log(`Sorry.`);
+        }
     })
 }
 
 window.addEventListener('load', () =>{
     main.appendChild(home());
+    init();
 })
 
 // const route = (event) => {
@@ -21,7 +45,7 @@ window.addEventListener('load', () =>{
 // }
 
 // const routes = {
-//     '/': '/src/view/login.html',
+//     '/#login': login(),
 //     '/index.html': '/src/view/login.html',
 //     '/home': '/src/view/home.html',
 //     '/medicamentos': '/src/view/medicamentos.html',
