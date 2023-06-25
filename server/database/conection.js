@@ -17,7 +17,7 @@ async function execute(query){
         return result.recordset;
     }
     catch(error){
-        console.log(error)
+        throw new Error(error);
     }
 }
 
