@@ -7,7 +7,7 @@ async function generateToken(req, res) {
         const user = req.body;
         const bdUser = (await repository.getByEmail(user.email)).shift();
         if(user.email === bdUser.email && user.senha === bdUser.senha){
-            const token = jwt.sign({userId: 1}, process.env.SECRET, {expiresIn: 300});
+            const token = jwt.sign({userId: bdUser.id}, process.env.SECRET, {expiresIn: 7200});
             res.json({auth: true, token});
         }
         res.status(401).end();
@@ -22,7 +22,6 @@ async function verifyToken(req, res, next) {
         jwt.verify(token, process.env.SECRET, (err, decoded) =>{
             if(err) 
                 return res.status(401).send();
-
             req.userId = decoded.userId;
             next();
         });
