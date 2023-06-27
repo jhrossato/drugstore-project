@@ -3,7 +3,7 @@ const database = require('../database/conection');
 async function getAll() {
     try {
       const query = 
-      "SELECT p.id, p.nome, c.nome as categoria, p.marca, p.fabricante, p.sobre, p.preco, p.estoque "+
+      "SELECT p.id, p.nome, c.nome as categoria, p.marca, p.fabricante, p.sobre, p.preco, p.estoque, p.img "+
       "FROM TB_Produto p "+
       "INNER JOIN TB_Categoria c ON p.categoria = c.id";
       const result = await database.execute(query);
@@ -16,7 +16,7 @@ async function getAll() {
   async function getByCategoriaId(id) {
     try {
       const query = 
-      "SELECT p.id, p.nome, c.nome as categoria, p.marca, p.fabricante, p.sobre, p.preco, p.estoque "+
+      "SELECT p.id, p.nome, c.nome as categoria, p.marca, p.fabricante, p.sobre, p.preco, p.estoque, p.img "+
       "FROM TB_Produto p "+
       "INNER JOIN TB_Categoria c ON p.categoria = c.id " +
       `WHERE c.id = ${id}`
@@ -40,7 +40,27 @@ async function getAll() {
 
   async function create(produto) {
     try {
-      const query = `INSERT INTO TB_Produto VALUES('${produto.nome}', ${produto.categoriaId}, '${produto.marca}', '${produto.fabricante}', '${produto.sobre}', ${produto.preco}, ${produto.estoque});`;
+      const query = `INSERT INTO TB_Produto VALUES('${produto.nome}', ${produto.categoriaId}, '${produto.marca}', '${produto.fabricante}', '${produto.sobre}', ${produto.preco}, ${produto.estoque}, '${produto.img}');`;
+      await database.execute(query);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async function put(produto) {
+    try {
+      const query = `UPDATE TB_Produto SET nome = '${produto.nome}', categoria = ${produto.categoriaId}, marca = '${produto.marca}', fabricante = '${produto.fabricante}', sobre = '${produto.sobre}', preco = ${produto.preco}, estoque = ${produto.estoque}, img = '${produto.img}' 
+        WHERE id = ${produto.id};`;
+      await database.execute(query);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async function deleteProduto(produtoId) {
+    try {
+      //console.log(produtoId)
+      const query = `DELETE FROM TB_Produto WHERE id = ${produtoId}`;
       await database.execute(query);
     } catch (error) {
       throw new Error(error.message);
@@ -51,5 +71,7 @@ async function getAll() {
     getAll,
     getByCategoriaId,
     getById,
-    create
+    create,
+    put,
+    deleteProduto
   }

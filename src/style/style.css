@@ -4,7 +4,7 @@
 
 footer {
     background-color: #f4f4f6;
-    position:absolute;
+    position:relative;
     bottom:0;
     width:100%;
 }
@@ -13,6 +13,6 @@ footer {
     font-family: 'Shadows Into Light', cursive;
 }
 
-.vh-100 {
-    min-height: 100vh;
+.vh {
+    min-height: 86vh;
 }

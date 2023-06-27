@@ -10,13 +10,15 @@ import tecnologia from './view/tecnologia/index.js';
 import sobre from './view/sobre/index.js';
 import conta from './view/conta/index.js';
 import administracao from './view/administracao/index.js';
+import detalhes from './view/detalhes/index.js';
 
 const main = document.querySelector("#root");
 
 const init = () => {
     window.addEventListener("hashchange", () =>{
         let locationHash = window.location.hash;
-        switch (locationHash) {
+
+        switch (locationHash.split('?')[0]) {
             case '':
                 main.replaceChildren(home());
                 break;
@@ -52,7 +54,10 @@ const init = () => {
                 break;
             case '#administracao':
                 main.replaceChildren(administracao());
-                break;     
+                break;
+            case '#detalhes':
+                main.replaceChildren(detalhes());
+                break;      
             default:
               console.log(`Sorry.`);
         }

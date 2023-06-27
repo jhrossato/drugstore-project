@@ -24,7 +24,7 @@ async function getByCategoriaName(req, res) {
   async function getById(req, res) {
     try {
         const produtoId = req.params.key;
-        const produto = await repository.getById(produtoId);
+        const produto = (await repository.getById(produtoId)).shift();
         produto != null && produto.length != 0 ? res.status(200).json(produto) : res.status(404).json(produto)
     } catch (error) {
         res.status(500).send('Internal Server Error: ' + error.message)
@@ -41,9 +41,32 @@ async function post(req, res) {
   }
 }
 
+async function put(req, res) {
+  try {
+    const produto = req.body;
+    console.log(produto)
+    await repository.put(produto);
+    res.status(200).json(produto);
+  } catch (error) {
+    res.status(500).send('Internal Server Error: ' + error.message)
+  }
+}
+
+async function deleteProduto(req, res) {
+  try {
+    const produtoId = req.params.id;
+    await repository.deleteProduto(produtoId);
+    res.status(200).json({result:"ok"});
+  } catch (error) {
+    res.status(500).send('Internal Server Error: ' + error.message)
+  }
+}
+
 module.exports = {
   get,
   getByCategoriaName,
   getById,
-  post
+  post,
+  put,
+  deleteProduto
 }

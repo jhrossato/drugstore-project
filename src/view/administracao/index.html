@@ -8,8 +8,8 @@
                     <input type="text" class="form-control" id="input-nome">
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="input-nome">Categoria</label>
-                    <select class="form-control">
+                    <label>Categoria</label>
+                    <select id="input-categoria" class="form-control">
                         <option selected>Selecione</option>
                         <option value="1">Medicamentos</option>
                         <option value="2">Beleza</option>
@@ -18,29 +18,29 @@
                     </select>
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="input-nome">Marca</label>
-                    <input type="text" class="form-control" id="input-nome">
+                    <label for="input-marca">Marca</label>
+                    <input type="text" class="form-control" id="input-marca">
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="input-nome">Fabricante</label>
-                    <input type="text" class="form-control" id="input-nome">
+                    <label for="input-fabricante">Fabricante</label>
+                    <input type="text" class="form-control" id="input-fabricante">
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="input-nome">Preço</label>
-                    <input type="number" class="form-control" id="input-nome">
+                    <label for="input-preco">Preço</label>
+                    <input type="number" class="form-control" id="input-preco">
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="input-nome">Estoque</label>
-                    <input type="number" class="form-control" id="input-nome">
+                    <label for="input-estoque">Estoque</label>
+                    <input type="number" class="form-control" id="input-estoque">
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="input-nome">Sobre</label>
-                    <textarea type="text" class="form-control" id="input-nome"></textarea>
+                    <label for="input-sobre">Sobre</label>
+                    <textarea type="text" class="form-control" id="input-sobre"></textarea>
                 </div>
                 <div class="col-6 mb-3">
-                    <label for="input-nome">Imagem</label>
+                    <label for="input-img">Imagem</label>
                     <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="inputGroupFile02">
+                        <input type="file" class="form-control" id="input-img">
                       </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
@@ -57,7 +57,7 @@
         </form>
     </section>
 
-    <table class="table">
+    <table id="tabela" class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -71,25 +71,87 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          
         </tbody>
       </table>
+
+      <div id="modalEditar" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Editar Produto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label for="modal-nome">Nome</label>
+                        <input type="text" class="form-control" id="modal-nome">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label>Categoria</label>
+                        <select id="modal-categoria" class="form-control">
+                            <option selected>Selecione</option>
+                            <option value="1">Medicamentos</option>
+                            <option value="2">Beleza</option>
+                            <option value="3">Dermocosmeticos</option>
+                            <option value="4">Higiene</option>
+                        </select>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="modal-marca">Marca</label>
+                        <input type="text" class="form-control" id="modal-marca">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="modal-fabricante">Fabricante</label>
+                        <input type="text" class="form-control" id="modal-fabricante">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="modal-preco">Preço</label>
+                        <input type="number" class="form-control" id="modal-preco">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="modal-estoque">Estoque</label>
+                        <input type="number" class="form-control" id="modal-estoque">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="modal-sobre">Sobre</label>
+                        <textarea type="text" class="form-control" id="modal-sobre"></textarea>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="modal-img">Imagem</label>
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="modal-img">
+                          </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button id="btn-submit-alteracao" type="button" class="btn btn-primary">Salvar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modalExcluir" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Excluir produto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Deseja excluir este produto ?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button id="btn-submit-delecao" type="button" data-bs-dismiss="modal" class="btn btn-primary">Sim</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 </section>
