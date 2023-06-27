@@ -30,6 +30,24 @@ async function getAll() {
     }
   }
 
+  async function update(user, userId) {
+    try {
+      const query = `UPDATE TB_User SET nome ='${user.nome}', email = '${user.email}', senha = '${user.senha}', cpf = '${user.cpf}' WHERE id = ${userId};`;
+      await database.execute(query);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async function deleteUser(userId) {
+    try {
+      const query = `DELETE FROM TB_User WHERE id = ${userId};`;
+      await database.execute(query);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
   async function create(user) {
     try {
       const query = `INSERT INTO TB_User VALUES('${user.nome}', '${user.email}', '${user.senha}', '${user.cpf}', ${user.adm});`;
@@ -43,5 +61,7 @@ async function getAll() {
     getAll,
     getById,
     getByEmail,
+    update,
+    deleteUser,
     create
   }

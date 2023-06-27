@@ -6,7 +6,6 @@ const schema = require('../schema/user')
 
             const itemSchema = schema.user[item]
             const body = req.body
-
             if(itemSchema.required && !body[item])
             {
                 errors.push(`${itemSchema.required}`);
@@ -27,7 +26,7 @@ const schema = require('../schema/user')
             }
         });
             
-        if(errors.length > 0) return res.status(400).json(errors);
+        if(errors.length > 0) return res.status(400).json({err: errors});
         next();
     }
 

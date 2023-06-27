@@ -1,0 +1,95 @@
+<section class="row justify-content-around mt-5">
+    <h2 class="text-center mb-5">Novo Produto</h2>
+    <section class="col-8 mb-3">
+        <form>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label for="input-nome">Nome</label>
+                    <input type="text" class="form-control" id="input-nome">
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="input-nome">Categoria</label>
+                    <select class="form-control">
+                        <option selected>Selecione</option>
+                        <option value="1">Medicamentos</option>
+                        <option value="2">Beleza</option>
+                        <option value="3">Dermocosmeticos</option>
+                        <option value="4">Higiene</option>
+                    </select>
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="input-nome">Marca</label>
+                    <input type="text" class="form-control" id="input-nome">
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="input-nome">Fabricante</label>
+                    <input type="text" class="form-control" id="input-nome">
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="input-nome">Preço</label>
+                    <input type="number" class="form-control" id="input-nome">
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="input-nome">Estoque</label>
+                    <input type="number" class="form-control" id="input-nome">
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="input-nome">Sobre</label>
+                    <textarea type="text" class="form-control" id="input-nome"></textarea>
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="input-nome">Imagem</label>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="inputGroupFile02">
+                      </div>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <button id="btn-submit" type="submit" class="btn btn-primary mt-2" style="min-width: 150px; max-width: 150px;">Cadastrar</button>
+                    <div id="spinner" class="spinner-border text-primary d-none" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                    
+                </div>
+                <div class="mt-2 d-flex justify-content-center">
+                    <span id="error" style="color: red;"></span>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ação</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Fabricante</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Estoque</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+
+</section>
