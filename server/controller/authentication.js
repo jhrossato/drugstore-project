@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 async function generateToken(req, res) {
     try {
         const user = req.body;
-        const bdUser = (await repository.getByEmail(user.email)).shift();
+        const bdUser = (await repository.getByEmail(user.email));
         if (bdUser === null || bdUser === undefined){
             return res.status(401).json({err:'Conta não cadastrada!'});
         }

@@ -18,7 +18,7 @@ export default () => {
             })
             .then(response => response.json())
             .then(json => {
-                document.getElementById('imagem').src = json.img
+                document.getElementById('imagem').src = localStorage.getItem(json.id)
                 document.getElementById('nome').innerHTML = json.nome
                 document.getElementById('preco').innerHTML += json.preco
                 document.getElementById('estoque').innerHTML += json.estoque

@@ -1,5 +1,5 @@
 {
     "conteudo": "Este projeto tem como objetivo a construção de um sistema de venda de medicamentos, onde será possível como usuário comum realizar cadastro, login, inserir produtos no carrinho e efetivar a compra. Como administrador será possível inserir um produto seu preço e quantidade disponível.",
-    "tecnologia": "O projeto será desenvolvido inteiramente em Javascript e SQL Server, tendo como bilbiotecas auxiliares: bootstrap e express.",
+    "tecnologia": "O projeto será desenvolvido inteiramente em Javascript e PostgresSQL, tendo como bilbiotecas auxiliares: bootstrap, express. dotenv, sequelize, jsonwebtoken e nodemon",
     "sobre": "Olá eu sou o João, estudante de Engenharia de Software. Por favor, sinta-se livre para enviar criticas e sugestões sobre meu trabalho. Muito obrigado por utilizar a plataforma, até mais!"
 }

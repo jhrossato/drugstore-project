@@ -5,7 +5,7 @@ export default () => {
     const handleTemplate = async () => {
         const template =  await fetch('/view/beleza/index.html').then((data) => data.text());
         container.innerHTML = template;
-        fetch(`http://localhost:3000/produtos/beleza`, {
+        fetch(`http://localhost:3000/produtos/nome/Beleza`, {
             method: 'GET',
             headers:{
                 "Content-Type":"application/json; charset=UTF-8",
@@ -21,7 +21,7 @@ export default () => {
                     `<div class="col-4 mt-2">
                     <div class="card card-pick" style="width: 18rem;">
                                 <input type="hidden" value="${element.id}">
-                    <img src="${element.img}" class="card-img-top" alt="...">
+                    <img src="${localStorage.getItem(element.id)}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-text text-center">${element.nome}</h5>
                         <div class="d-flex justify-content-evenly">

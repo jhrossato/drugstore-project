@@ -12,8 +12,10 @@ async function get(req, res) {
 
 async function getByCategoriaName(req, res) {
     try {
+      console.log('categoria')
         const categoriaName = req.params.key;
-        const categoria = (await categoriaRepository.getByName(categoriaName)).shift();
+        const categoria = (await categoriaRepository.getByName(categoriaName));
+        console.log('categoria '+ categoria)
         const produtos = await repository.getByCategoriaId(categoria.id);
         produtos != null ? res.status(200).json(produtos) : res.status(204).json(produtos)
     } catch (error) {
@@ -23,8 +25,8 @@ async function getByCategoriaName(req, res) {
 
   async function getById(req, res) {
     try {
-        const produtoId = req.params.key;
-        const produto = (await repository.getById(produtoId)).shift();
+        const produtoId = req.params.id;
+        const produto = (await repository.getById(produtoId));
         produto != null && produto.length != 0 ? res.status(200).json(produto) : res.status(404).json(produto)
     } catch (error) {
         res.status(500).send('Internal Server Error: ' + error.message)
@@ -34,8 +36,8 @@ async function getByCategoriaName(req, res) {
 async function post(req, res) {
   try {
     const produto = req.body;
-    await repository.create(produto);
-    res.status(201).json(produto);
+    const result = await repository.create(produto);
+    res.status(201).json(result);
   } catch (error) {
     res.status(500).send('Internal Server Error: ' + error.message)
   }
@@ -44,8 +46,7 @@ async function post(req, res) {
 async function put(req, res) {
   try {
     const produto = req.body;
-    console.log(produto)
-    await repository.put(produto);
+    await repository.update(produto);
     res.status(200).json(produto);
   } catch (error) {
     res.status(500).send('Internal Server Error: ' + error.message)

@@ -6,9 +6,8 @@ export default () => {
         container.innerHTML = template;
 
         getDadosTabela();
+        getCategoria();
 
-        const categoria = document.getElementById('input-categoria') == null ? '' : document.getElementById('input-categoria');
-        let categoriaValue;
         const img = document.getElementById('input-img') == null ? '' : document.getElementById('input-img');
         let imgBase64; 
 
@@ -22,9 +21,13 @@ export default () => {
             reader.readAsDataURL(file)
         })
 
-        categoria.addEventListener("change", () => {
-            categoriaValue = categoria.value;
-        })
+        let categoriaValue;
+        const selects = document.querySelectorAll(".input-categoria");
+            selects.forEach((select) => {
+                select.addEventListener('change', () => {
+                    categoriaValue = select.value;
+                })
+            })
 
         const spinner = document.getElementById('spinner');
         
@@ -35,6 +38,8 @@ export default () => {
             const preco = document.getElementById('input-preco') == null ? '' : document.getElementById('input-preco');
             const estoque = document.getElementById('input-estoque') == null ? '' : document.getElementById('input-estoque');
             const sobre = document.getElementById('input-sobre') == null ? '' : document.getElementById('input-sobre');
+
+            console.log('categoria value ' + categoriaValue);
 
              e.preventDefault();
             this.classList.add("d-none");
@@ -49,7 +54,6 @@ export default () => {
                 preco:preco.value,
                 estoque:estoque.value,
                 sobre:sobre.value,
-                img:imgBase64
             }),
             headers:{
                 "Content-Type":"application/json; charset=UTF-8",
@@ -58,14 +62,41 @@ export default () => {
             })
             .then(response => response.json())
             .then(json => {
+                console.log(json)
                 this.classList.remove("d-none");
                 spinner.classList.add("d-none");
+                localStorage.setItem(json.id, imgBase64);
                 getDadosTabela();
             })
+        })
+
+        document.getElementById('btn-submit-categoria').addEventListener('click', (e) => {
+            fetch('http://localhost:3000/categorias/', {
+            method: 'POST',
+            body:JSON.stringify({
+                nome: document.getElementById('modal-categoria-nome').value
+            }),
+            headers:{
+                "Content-Type":"application/json; charset=UTF-8",
+                "x-access-token":getCookie('token')
+            }
+            })
+            .then(response => {
+                document.getElementById('modal-categoria-nome').value = '';
+                getCategoria()
+            });
         })
     }
 
     function getDadosTabela(){
+
+        let categoriaValue;
+        const selects = document.querySelectorAll(".input-categoria");
+            selects.forEach((select) => {
+                select.addEventListener('change', () => {
+                    categoriaValue = select.value;
+                })
+            })
 
         fetch('http://localhost:3000/produtos/', {
             method: 'GET',
@@ -79,15 +110,16 @@ export default () => {
             const tabela = document.getElementById('tabela').getElementsByTagName('tbody')[0];
             tabela.innerHTML = "";
             json.forEach(element => {
+                console.log(element)
                 let row = tabela.insertRow();
                 row.innerHTML = 
-                    `<td>${element.id}</td>
+                    `<td>${row.rowIndex}</td>
                     <td>
                         <button value="${element.id}" type="button" class="btn-editar btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
                         <button value="${element.id}" type="button" class="btn-excluir btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
                     </td>
                     <td>${element.nome}</td>
-                    <td>${element.categoria}</td>
+                    <td>${element.categoria.nome}</td>
                     <td>${element.marca}</td>
                     <td>${element.fabricante}</td>
                     <td>${element.preco}</td>
@@ -107,8 +139,6 @@ export default () => {
                     const sobre = document.getElementById('modal-sobre') == null ? '' : document.getElementById('modal-sobre');
                     const img = document.getElementById('modal-img') == null ? '' : document.getElementById('modal-img');
                     let imgBase64; 
-                    const categoria = document.getElementById('modal-categoria') == null ? '' : document.getElementById('modal-categoria');
-                    let categoriaValue2;
 
                     img.addEventListener("change", e => {
                         const file = img.files[0];
@@ -118,10 +148,6 @@ export default () => {
                             imgBase64 = reader.result;
                         })
                         reader.readAsDataURL(file)
-                    })
-
-                    categoria.addEventListener("change", () => {
-                        categoriaValue2 = categoria.value;
                     })
 
                     fetch(`http://localhost:3000/produtos/${btn.value}`, {
@@ -143,25 +169,28 @@ export default () => {
                         })  
 
                         document.getElementById('btn-submit-alteracao').addEventListener('click', function(){
+                            console.log(categoriaValue)
                             fetch('http://localhost:3000/produtos/edit', {
                                 method: 'PUT',
                                 body:JSON.stringify({
                                     id:produtoId,
                                     nome:nome.value,
-                                    categoriaId:categoriaValue2,
+                                    categoriaId: categoriaValue,
                                     marca:marca.value,
                                     fabricante:fabricante.value,
                                     preco:preco.value,
                                     estoque:estoque.value,
                                     sobre:sobre.value,
-                                    img:imgBase64
+                                    img: localStorage.getItem(produtoId)
                                 }),
                                 headers:{
                                     "Content-Type":"application/json; charset=UTF-8",
                                     "x-access-token":getCookie('token')
                                 }
                                 })
-                                .then(getDadosTabela())
+                                .then(response => {
+                                    getDadosTabela()
+                                })
                         })
                 })
             })
@@ -180,12 +209,46 @@ export default () => {
                                 "x-access-token":getCookie('token')
                             }
                             })
-                            .then(getDadosTabela())
+                            .then(response => {
+                                getDadosTabela()
+                            });
                     })
                 })   
             })
         })
     }
+
+    function getCategoria() {
+        fetch('http://localhost:3000/categorias/', {
+        method: 'GET',
+        headers:{
+            "Content-Type":"application/json; charset=UTF-8",
+            "x-access-token":getCookie('token')
+        }
+        })
+        .then(response => response.json())
+        .then(json => {
+            const selects = document.querySelectorAll(".input-categoria");
+            selects.forEach((select) => {
+                while (select.options.length > 0) {
+                    select.remove(0);
+                }
+                var option = document.createElement("option");
+                option.text = 'Selecione';
+                select.add(option);
+                json.forEach((categoria) => {
+                    var option = document.createElement("option");
+                    option.text = categoria.nome;
+                    option.value = categoria.id;
+                    select.add(option);
+                });
+            });
+        })
+
+        
+    }
+
+    
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;

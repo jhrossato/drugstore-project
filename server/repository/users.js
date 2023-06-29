@@ -1,10 +1,11 @@
-const database = require('../database/conection');
+const Usuario = require('../models/usuario');
 
 async function getAll() {
     try {
-      const query = "SELECT * FROM TB_User";
-      const result = await database.execute(query);
-      return result;
+      return await Usuario.findAll();
+      // const query = "SELECT * FROM TB_User";
+      // const result = await database.execute(query);
+      // return result;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -12,9 +13,10 @@ async function getAll() {
 
   async function getById(id) {
     try {
-      const query = `SELECT * FROM TB_User WHERE id = ${id}`;
-      const result = await database.execute(query);
-      return result;
+      return await Usuario.findByPk(id);
+      // const query = `SELECT * FROM TB_User WHERE id = ${id}`;
+      // const result = await database.execute(query);
+      // return result;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -22,9 +24,12 @@ async function getAll() {
 
   async function getByEmail(email) {
     try {
-      const query = `SELECT TOP 1 * FROM TB_User WHERE email = '${email}'`;
-      const result = await database.execute(query);
-      return result;
+      return await Usuario.findOne({
+        where: {email: email}
+      });
+      // const query = `SELECT TOP 1 * FROM TB_User WHERE email = '${email}'`;
+      // const result = await database.execute(query);
+      // return result;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -32,8 +37,13 @@ async function getAll() {
 
   async function update(user, userId) {
     try {
-      const query = `UPDATE TB_User SET nome ='${user.nome}', email = '${user.email}', senha = '${user.senha}', cpf = '${user.cpf}' WHERE id = ${userId};`;
-      await database.execute(query);
+      await Usuario.update(user, {
+        where:{
+          id: userId
+        }
+      });
+      // const query = `UPDATE TB_User SET nome ='${user.nome}', email = '${user.email}', senha = '${user.senha}', cpf = '${user.cpf}' WHERE id = ${userId};`;
+      // await database.execute(query);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -41,8 +51,13 @@ async function getAll() {
 
   async function deleteUser(userId) {
     try {
-      const query = `DELETE FROM TB_User WHERE id = ${userId};`;
-      await database.execute(query);
+      await Usuario.destroy({
+        where:{
+          id: userId
+        }
+      });
+      // const query = `DELETE FROM TB_User WHERE id = ${userId};`;
+      // await database.execute(query);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -50,9 +65,12 @@ async function getAll() {
 
   async function create(user) {
     try {
-      const query = `INSERT INTO TB_User VALUES('${user.nome}', '${user.email}', '${user.senha}', '${user.cpf}', ${user.adm});`;
-      await database.execute(query);
+      console.log('chegou create')
+      await Usuario.create(user)
+      // const query = `INSERT INTO TB_User VALUES('${user.nome}', '${user.email}', '${user.senha}', '${user.cpf}', ${user.adm});`;
+      // await database.execute(query);
     } catch (error) {
+      console.log(error.message)
       throw new Error(error.message);
     }
   }

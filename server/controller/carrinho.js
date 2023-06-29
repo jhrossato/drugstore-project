@@ -15,7 +15,7 @@ async function post(req, res) {
     const userId = req.userId;
     const produtoId = req.body.produtoId;
     const quantidade = req.body.quantidade;
-    const exists = (await repository.verifyIfExists(userId, produtoId)).shift();
+    const exists = (await repository.verifyIfExists(userId, produtoId));
     if(exists){
         await repository.updateQuantidade(userId, exists.id_produto, exists.quantidade, quantidade)
         res.status(200).end();

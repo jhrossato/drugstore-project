@@ -7,15 +7,17 @@
                     <label for="input-nome">Nome</label>
                     <input type="text" class="form-control" id="input-nome">
                 </div>
-                <div class="col-6 mb-3">
+                <div class="col-5 mb-3">
                     <label>Categoria</label>
-                    <select id="input-categoria" class="form-control">
+                    <select class="input-categoria form-control">
                         <option selected>Selecione</option>
-                        <option value="1">Medicamentos</option>
-                        <option value="2">Beleza</option>
-                        <option value="3">Dermocosmeticos</option>
-                        <option value="4">Higiene</option>
                     </select>
+                </div>
+                <div class="col-1 mb-3">
+                  <label style="visibility: hidden;">Categoria</label>
+                  <button id="btn-categoria" class="h-50 btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalCategoria">
+                    <p>Add</p>
+                  </button>
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-marca">Marca</label>
@@ -91,12 +93,8 @@
                     </div>
                     <div class="col-6 mb-3">
                         <label>Categoria</label>
-                        <select id="modal-categoria" class="form-control">
+                        <select class="input-categoria form-control">
                             <option selected>Selecione</option>
-                            <option value="1">Medicamentos</option>
-                            <option value="2">Beleza</option>
-                            <option value="3">Dermocosmeticos</option>
-                            <option value="4">Higiene</option>
                         </select>
                     </div>
                     <div class="col-6 mb-3">
@@ -130,7 +128,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button id="btn-submit-alteracao" type="button" class="btn btn-primary">Salvar</button>
+              <button id="btn-submit-alteracao" type="button" class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
             </div>
           </div>
         </div>
@@ -149,6 +147,31 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
               <button id="btn-submit-delecao" type="button" data-bs-dismiss="modal" class="btn btn-primary">Sim</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modalCategoria" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Nova Categoria</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row justify-content-center">
+                    <div class="col-6 mb-3">
+                        <label for="modal-categoria-nome">Nome</label>
+                        <input type="text" class="form-control" id="modal-categoria-nome">
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button id="btn-submit-categoria" type="button" data-bs-dismiss="modal" class="btn btn-primary">Salvar</button>
             </div>
           </div>
         </div>
