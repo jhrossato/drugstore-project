@@ -12,8 +12,9 @@ async function get(req, res) {
 async function post(req, res) {
   try {
     categoria = req.body;
+    console.log(categoria)
     await repository.create(categoria);
-    res.status(201).end();
+    res.status(201).json({result: "ok"});
   } catch (error) {
     res.status(400).json({"error": error.message})
   }

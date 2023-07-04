@@ -53,15 +53,7 @@ async function getAll() {
 
   async function create(produto) {
     try {
-      return await Produto.create({
-        nome:produto.nome,
-        categoriaId:produto.categoriaId,
-        marca:produto.marca,
-        fabricante:produto.fabricante,
-        preco:produto.preco,
-        estoque:produto.estoque,
-        sobre:produto.sobre
-      }).then((p) => {
+      return await Produto.create(produto).then((p) => {
         return p;
       });
       // const query = `INSERT INTO TB_Produto VALUES('${produto.nome}', ${produto.categoriaId}, '${produto.marca}', '${produto.fabricante}', '${produto.sobre}', ${produto.preco}, ${produto.estoque}, '${produto.img}');`;

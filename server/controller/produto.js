@@ -12,8 +12,8 @@ async function get(req, res) {
 
 async function getByCategoriaName(req, res) {
     try {
-      console.log('categoria')
-        const categoriaName = req.params.key;
+      console.log('CHEGOU GET BY NAME')
+        const categoriaName = req.params.categoria;
         const categoria = (await categoriaRepository.getByName(categoriaName));
         console.log('categoria '+ categoria)
         const produtos = await repository.getByCategoriaId(categoria.id);
@@ -25,6 +25,7 @@ async function getByCategoriaName(req, res) {
 
   async function getById(req, res) {
     try {
+        console.log('CHEGOU GET BY ID')
         const produtoId = req.params.id;
         const produto = (await repository.getById(produtoId));
         produto != null && produto.length != 0 ? res.status(200).json(produto) : res.status(404).json(produto)

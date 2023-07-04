@@ -25,6 +25,7 @@ async function generateToken(req, res) {
 async function verifyToken(req, res, next) {
     try {
         const token = req.headers['x-access-token'];
+        console.log(req.body)
         jwt.verify(token, process.env.SECRET, (err, decoded) =>{
             if(err) 
                 return res.status(401).send();

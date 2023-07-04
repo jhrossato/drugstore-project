@@ -1,48 +1,48 @@
 <section class="row justify-content-around mt-5">
     <h2 class="text-center mb-5">Novo Produto</h2>
     <section class="col-8 mb-3">
-        <form>
+        <form id="novo-produto">
             <div class="row">
                 <div class="col-6 mb-3">
                     <label for="input-nome">Nome</label>
-                    <input type="text" class="form-control" id="input-nome">
+                    <input type="text" class="form-control" id="input-nome" name="nome">
                 </div>
                 <div class="col-5 mb-3">
                     <label>Categoria</label>
-                    <select class="input-categoria form-control">
+                    <select class="input-categoria form-control" name="categoriaId">
                         <option selected>Selecione</option>
                     </select>
                 </div>
                 <div class="col-1 mb-3">
                   <label style="visibility: hidden;">Categoria</label>
-                  <button id="btn-categoria" class="h-50 btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalCategoria">
+                  <button type="button" id="btn-categoria" class="h-50 btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalCategoria">
                     <p>Add</p>
                   </button>
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-marca">Marca</label>
-                    <input type="text" class="form-control" id="input-marca">
+                    <input type="text" class="form-control" id="input-marca" name="marca">
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-fabricante">Fabricante</label>
-                    <input type="text" class="form-control" id="input-fabricante">
+                    <input type="text" class="form-control" id="input-fabricante" name="fabricante">
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-preco">Preço</label>
-                    <input type="number" class="form-control" id="input-preco">
+                    <input type="number" class="form-control" id="input-preco" name="preco">
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-estoque">Estoque</label>
-                    <input type="number" class="form-control" id="input-estoque">
+                    <input type="number" class="form-control" id="input-estoque" name="estoque">
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-sobre">Sobre</label>
-                    <textarea type="text" class="form-control" id="input-sobre"></textarea>
+                    <textarea type="text" class="form-control" id="input-sobre" name="sobre"></textarea>
                 </div>
                 <div class="col-6 mb-3">
                     <label for="input-img">Imagem</label>
                     <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="input-img">
+                        <input type="file" class="form-control" name="image" id="input-img">
                       </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
@@ -85,8 +85,9 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form id="edit-produto">
                 <div class="row">
+                    <input type="hidden" id="modal-id">
                     <div class="col-6 mb-3">
                         <label for="modal-nome">Nome</label>
                         <input type="text" class="form-control" id="modal-nome">
@@ -128,8 +129,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button id="btn-submit-alteracao" type="button" class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
             </div>
+          </form>
           </div>
         </div>
       </div>
@@ -159,20 +161,20 @@
               <h5 class="modal-title">Nova Categoria</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              <form>
-                <div class="row justify-content-center">
-                    <div class="col-6 mb-3">
-                        <label for="modal-categoria-nome">Nome</label>
-                        <input type="text" class="form-control" id="modal-categoria-nome">
-                    </div>
-                </div>
-            </form>
-            </div>
+            <form id="nova-categoria">
+              <div class="modal-body">
+                  <div class="row justify-content-center">
+                      <div class="col-6 mb-3">
+                          <label for="modal-categoria-nome">Nome</label>
+                          <input id="nome-categoria" type="text" class="form-control" name="nome">
+                      </div>
+                  </div>
+              </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button id="btn-submit-categoria" type="button" data-bs-dismiss="modal" class="btn btn-primary">Salvar</button>
+              <button id="submit-categoria" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Salvar</button>
             </div>
+          </form>
           </div>
         </div>
       </div>

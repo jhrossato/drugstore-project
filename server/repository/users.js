@@ -65,7 +65,6 @@ async function getAll() {
 
   async function create(user) {
     try {
-      console.log('chegou create')
       await Usuario.create(user)
       // const query = `INSERT INTO TB_User VALUES('${user.nome}', '${user.email}', '${user.senha}', '${user.cpf}', ${user.adm});`;
       // await database.execute(query);

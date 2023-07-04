@@ -1,3 +1,4 @@
+
 export default () => {
     const container = document.createElement('div');
     
@@ -7,98 +8,96 @@ export default () => {
 
         getDadosTabela();
         getCategoria();
-
-        const img = document.getElementById('input-img') == null ? '' : document.getElementById('input-img');
-        let imgBase64; 
-
-        img.addEventListener("change", e => {
-            const file = img.files[0];
-            const reader = new FileReader();  
-
-            reader.addEventListener("load", () => {
-                imgBase64 = reader.result;
-            })
-            reader.readAsDataURL(file)
-        })
-
-        let categoriaValue;
-        const selects = document.querySelectorAll(".input-categoria");
-            selects.forEach((select) => {
-                select.addEventListener('change', () => {
-                    categoriaValue = select.value;
-                })
-            })
-
+        setNovoProdutoForm();
+        setNovaCategoriaForm();
+        setEditProdutoForm();   
         const spinner = document.getElementById('spinner');
-        
-        document.getElementById('btn-submit').addEventListener('click', function(e){
-            const nome = document.getElementById('input-nome') == null ? '' : document.getElementById('input-nome');
-            const marca = document.getElementById('input-marca') == null ? '' : document.getElementById('input-marca');
-            const fabricante = document.getElementById('input-fabricante') == null ? '' : document.getElementById('input-fabricante');
-            const preco = document.getElementById('input-preco') == null ? '' : document.getElementById('input-preco');
-            const estoque = document.getElementById('input-estoque') == null ? '' : document.getElementById('input-estoque');
-            const sobre = document.getElementById('input-sobre') == null ? '' : document.getElementById('input-sobre');
+    }
 
-            console.log('categoria value ' + categoriaValue);
+    function toggleSpinner(button){
+        button.classList.toggle("d-none");
+        spinner.classList.toggle("d-none");
+    }
 
-             e.preventDefault();
-            this.classList.add("d-none");
-            spinner.classList.remove("d-none")
-            fetch('http://localhost:3000/produtos/new', {
+    function setNovaCategoriaForm(){
+        const form = document.getElementById('nova-categoria');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const formDataObj = Object.fromEntries(formData.entries());
+
+            fetch('http://localhost:3000/categorias', {
             method: 'POST',
-            body:JSON.stringify({
-                nome:nome.value,
-                categoriaId:categoriaValue,
-                marca:marca.value,
-                fabricante:fabricante.value,
-                preco:preco.value,
-                estoque:estoque.value,
-                sobre:sobre.value,
-            }),
+            body:JSON.stringify(formDataObj),
             headers:{
                 "Content-Type":"application/json; charset=UTF-8",
                 "x-access-token":getCookie('token')
             }
             })
-            .then(response => response.json())
-            .then(json => {
-                console.log(json)
-                this.classList.remove("d-none");
-                spinner.classList.add("d-none");
-                localStorage.setItem(json.id, imgBase64);
-                getDadosTabela();
-            })
-        })
-
-        document.getElementById('btn-submit-categoria').addEventListener('click', (e) => {
-            fetch('http://localhost:3000/categorias/', {
-            method: 'POST',
-            body:JSON.stringify({
-                nome: document.getElementById('modal-categoria-nome').value
-            }),
-            headers:{
-                "Content-Type":"application/json; charset=UTF-8",
-                "x-access-token":getCookie('token')
-            }
-            })
-            .then(response => {
-                document.getElementById('modal-categoria-nome').value = '';
-                getCategoria()
-            });
+            .then(response => getCategoria())
         })
     }
 
-    function getDadosTabela(){
-
-        let categoriaValue;
-        const selects = document.querySelectorAll(".input-categoria");
-            selects.forEach((select) => {
-                select.addEventListener('change', () => {
-                    categoriaValue = select.value;
-                })
+    function setNovoProdutoForm(){
+        const form = document.getElementById('novo-produto');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const img = document.getElementById('input-img') == null ? '' : document.getElementById('input-img');
+            const formData = new FormData(form);
+            const formDataObj = Object.fromEntries(formData.entries());
+            formDataObj.image = img.files[0].name;
+            
+            fetch('http://localhost:3000/produtos', {
+                method: 'POST',
+                body: JSON.stringify(formDataObj),
+                headers:{
+                    "Content-Type":"application/json; charset=UTF-8",
+                    "x-access-token":getCookie('token')
+                }
             })
+            .then(response => response.json())
+            .then(json => {
+                formData.append("produtoId", json.id);
+                fetch('http://localhost:3000/upload', {
+                method: 'POST',
+                body: formData
+                });
+            })
+            .then(response => getDadosTabela())
+        });
+    }
 
-        fetch('http://localhost:3000/produtos/', {
+    function setEditProdutoForm(){
+        const form = document.getElementById('edit-produto');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const img = document.getElementById('input-img') == null ? '' : document.getElementById('input-img');
+            const formData = new FormData(form);
+            const formDataObj = Object.fromEntries(formData.entries());
+            formDataObj.image = img.files[0].name;
+
+            fetch('http://localhost:3000/produtos', {
+                method: 'PUT',
+                body:JSON.stringify(formDataObj),
+                headers:{
+                    "Content-Type":"application/json; charset=UTF-8",
+                    "x-access-token":getCookie('token')
+                }
+            })
+            .then(response => response.json())
+            .then(json => {
+                formData.append("produtoId", json.id);
+                fetch('http://localhost:3000/upload', {
+                method: 'POST',
+                body: formData
+                });
+            })
+            .then(response => getDadosTabela())
+        });
+    }
+
+    function getDadosTabela(){
+        fetch('http://localhost:3000/produtos', {
             method: 'GET',
             headers:{
                 "Content-Type":"application/json; charset=UTF-8",
@@ -126,80 +125,36 @@ export default () => {
                     <td>${element.estoque}</td>`; 
             });
 
-            const btnEditar = document.querySelectorAll('.btn-editar');
-                    
-            btnEditar.forEach((btn) => {
+            document.querySelectorAll('.btn-editar').forEach((btn) => {
                 btn.addEventListener('click', () => {
-                    let produtoId;
-                    const nome = document.getElementById('modal-nome') == null ? '' : document.getElementById('modal-nome');
-                    const marca = document.getElementById('modal-marca') == null ? '' : document.getElementById('modal-marca');
-                    const fabricante = document.getElementById('modal-fabricante') == null ? '' : document.getElementById('modal-fabricante');
-                    const preco = document.getElementById('modal-preco') == null ? '' : document.getElementById('modal-preco');
-                    const estoque = document.getElementById('modal-estoque') == null ? '' : document.getElementById('modal-estoque');
-                    const sobre = document.getElementById('modal-sobre') == null ? '' : document.getElementById('modal-sobre');
-                    const img = document.getElementById('modal-img') == null ? '' : document.getElementById('modal-img');
-                    let imgBase64; 
+                    let produtoId = btn.value;
 
-                    img.addEventListener("change", e => {
-                        const file = img.files[0];
-                        const reader = new FileReader();  
-            
-                        reader.addEventListener("load", () => {
-                            imgBase64 = reader.result;
-                        })
-                        reader.readAsDataURL(file)
-                    })
-
-                    fetch(`http://localhost:3000/produtos/${btn.value}`, {
+                    fetch(`http://localhost:3000/produtos/${produtoId}`, {
                         method: 'GET',
                         headers:{
                             "Content-Type":"application/json; charset=UTF-8",
                             "x-access-token":getCookie('token')
                         }
-                        })
-                        .then(response => response.json())
-                        .then(json => {
-                            produtoId = json.id
-                            nome.value = json.nome
-                            marca.value = json.marca
-                            fabricante.value = json.fabricante
-                            preco.value = json.preco
-                            estoque.value = json.estoque
-                            sobre.value = json.sobre
-                        })  
-
-                        document.getElementById('btn-submit-alteracao').addEventListener('click', function(){
-                            console.log(categoriaValue)
-                            fetch('http://localhost:3000/produtos/edit', {
-                                method: 'PUT',
-                                body:JSON.stringify({
-                                    id:produtoId,
-                                    nome:nome.value,
-                                    categoriaId: categoriaValue,
-                                    marca:marca.value,
-                                    fabricante:fabricante.value,
-                                    preco:preco.value,
-                                    estoque:estoque.value,
-                                    sobre:sobre.value,
-                                    img: localStorage.getItem(produtoId)
-                                }),
-                                headers:{
-                                    "Content-Type":"application/json; charset=UTF-8",
-                                    "x-access-token":getCookie('token')
-                                }
-                                })
-                                .then(response => {
-                                    getDadosTabela()
-                                })
-                        })
-                })
-            })
+                    })
+                    .then(response => response.json())
+                    .then(json => {
+                        document.getElementById('modal-id').value = json.id;
+                        document.getElementById('modal-nome').value = json.nome
+                        document.getElementById('modal-marca').value = json.marca
+                        document.getElementById('modal-fabricante').value = json.fabricante
+                        document.getElementById('modal-preco').value = json.preco
+                        document.getElementById('modal-estoque').value = json.estoque
+                        document.getElementById('modal-sobre').value = json.sobre
+                    });  
+                });
+            });
 
             const btnEcluir = document.querySelectorAll('.btn-excluir');
             btnEcluir.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    document.getElementById('btn-submit-delecao').addEventListener('click', function(){
-                        fetch(`http://localhost:3000/produtos/delete/${btn.value}`, {
+                btn.addEventListener('click', (e) => {
+                    document.getElementById('btn-submit-delecao').addEventListener('click', function(e){
+                        e.preventDefault();
+                        fetch(`http://localhost:3000/produtos/${btn.value}`, {
                             method: 'DELETE',
                             body:JSON.stringify({
                                 id:btn.value
@@ -208,14 +163,14 @@ export default () => {
                                 "Content-Type":"application/json; charset=UTF-8",
                                 "x-access-token":getCookie('token')
                             }
-                            })
-                            .then(response => {
-                                getDadosTabela()
-                            });
-                    })
-                })   
-            })
-        })
+                        })
+                        .then(response => {
+                            getDadosTabela()
+                        });
+                    });
+                });   
+            });
+        });
     }
 
     function getCategoria() {
@@ -244,11 +199,7 @@ export default () => {
                 });
             });
         })
-
-        
     }
-
-    
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;

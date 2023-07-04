@@ -17,7 +17,6 @@ const main = document.querySelector("#root");
 const init = () => {
     window.addEventListener("hashchange", () =>{
         let locationHash = window.location.hash;
-
         switch (locationHash.split('?')[0]) {
             case '':
                 main.replaceChildren(home());
@@ -69,10 +68,5 @@ window.addEventListener('load', () =>{
     window.location.hash = '#'
     init();
 })
-
-// main.addEventListener('change', () =>{
-//     main.appendChild(home());
-//     init();
-// })
 
 

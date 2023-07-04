@@ -73,7 +73,7 @@ export default () => {
                 element.classList.add("d-none");
             });
             spinner.classList.remove("d-none")
-            fetch(`http://localhost:3000/users/delete/${id}`, {
+            fetch(`http://localhost:3000/users/${id}`, {
             method: 'DELETE',
             headers:{
                 "Content-Type":"application/json; charset=UTF-8",

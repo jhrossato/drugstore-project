@@ -31,6 +31,10 @@ const Produto = sequelize.define('Produto', {
     estoque:{
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    image:{
+        type: DataTypes.STRING,
+        allowNull: false
     }
 });
 
