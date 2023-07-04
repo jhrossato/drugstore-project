@@ -6,17 +6,14 @@ export default () => {
         const template =  await fetch('/view/administracao/index.html').then((data) => data.text());
         container.innerHTML = template;
 
-        getDadosTabela();
-        getCategoria();
-        setNovoProdutoForm();
-        setNovaCategoriaForm();
-        setEditProdutoForm();   
-        const spinner = document.getElementById('spinner');
-    }
+        let page;
+        let size;
 
-    function toggleSpinner(button){
-        button.classList.toggle("d-none");
-        spinner.classList.toggle("d-none");
+        await getDadosTabela(page, size);
+        await getCategoria();
+        await setNovoProdutoForm();
+        await setNovaCategoriaForm();
+        await setEditProdutoForm();    
     }
 
     function setNovaCategoriaForm(){
@@ -46,7 +43,7 @@ export default () => {
             const formData = new FormData(form);
             const formDataObj = Object.fromEntries(formData.entries());
             formDataObj.image = img.files[0].name;
-            
+            formData.append("id", json.id);
             fetch('http://localhost:3000/produtos', {
                 method: 'POST',
                 body: JSON.stringify(formDataObj),
@@ -70,12 +67,13 @@ export default () => {
     function setEditProdutoForm(){
         const form = document.getElementById('edit-produto');
         form.addEventListener('submit', (e) => {
+            console.log('AAAAAAAAAAAAAAA')
             e.preventDefault();
-            const img = document.getElementById('input-img') == null ? '' : document.getElementById('input-img');
+            const img = document.getElementById('modal-img') == null ? '' : document.getElementById('modal-img');
             const formData = new FormData(form);
             const formDataObj = Object.fromEntries(formData.entries());
             formDataObj.image = img.files[0].name;
-
+            console.log(JSON.stringify(formDataObj))
             fetch('http://localhost:3000/produtos', {
                 method: 'PUT',
                 body:JSON.stringify(formDataObj),
@@ -96,8 +94,14 @@ export default () => {
         });
     }
 
-    function getDadosTabela(){
-        fetch('http://localhost:3000/produtos', {
+    function getDadosTabela(page, size){
+        
+        if(page === undefined || size === undefined){
+           page = 0
+           size = 3
+        }
+
+        fetch(`http://localhost:3000/produtos/paginate?page=${page}&size=${size}`, {
             method: 'GET',
             headers:{
                 "Content-Type":"application/json; charset=UTF-8",
@@ -106,10 +110,10 @@ export default () => {
         })
         .then(response => response.json())
         .then(json => {
+            const produtosCount = json.count;
             const tabela = document.getElementById('tabela').getElementsByTagName('tbody')[0];
             tabela.innerHTML = "";
-            json.forEach(element => {
-                console.log(element)
+            json.rows.forEach(element => {
                 let row = tabela.insertRow();
                 row.innerHTML = 
                     `<td>${row.rowIndex}</td>
@@ -125,6 +129,33 @@ export default () => {
                     <td>${element.estoque}</td>`; 
             });
 
+            const paginationElement = document.querySelector('.pagination');
+            paginationElement.innerHTML = '';
+            paginationElement.innerHTML += 
+                `<li class="page-item">
+                    <a class="page-link" id="previous" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>`;
+            const numberOfPages = Math.ceil(produtosCount / size);
+            for (var i = 1; i <= numberOfPages; i++) {
+                paginationElement.innerHTML += `<li class="page-item"><a class="page page-link">${i}</a></li>`
+            }
+            paginationElement.innerHTML += 
+                `<li class="page-item">
+                    <a class="page-link" id="next" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>`;
+            
+            const pages = document.querySelectorAll('.page');
+            pages.forEach((page) => {
+                page.addEventListener('click', (page) => {
+                    getDadosTabela(page.srcElement.firstChild.data - 1, 3);
+                    
+                })
+            })
+            
             document.querySelectorAll('.btn-editar').forEach((btn) => {
                 btn.addEventListener('click', () => {
                     let produtoId = btn.value;
@@ -138,7 +169,7 @@ export default () => {
                     })
                     .then(response => response.json())
                     .then(json => {
-                        document.getElementById('modal-id').value = json.id;
+                        document.getElementById('modal-id').value = produtoId;
                         document.getElementById('modal-nome').value = json.nome
                         document.getElementById('modal-marca').value = json.marca
                         document.getElementById('modal-fabricante').value = json.fabricante
@@ -171,6 +202,8 @@ export default () => {
                 });   
             });
         });
+
+        return true;
     }
 
     function getCategoria() {

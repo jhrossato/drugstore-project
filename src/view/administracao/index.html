@@ -58,8 +58,8 @@
             </div>
         </form>
     </section>
-
-    <table id="tabela" class="table">
+    <section>
+      <table id="tabela" class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -72,10 +72,18 @@
             <th scope="col">Estoque</th>
           </tr>
         </thead>
-        <tbody>
-          
+        <tbody>    
         </tbody>
       </table>
+
+      <nav id="pageNav" aria-label="Page navigation example">
+        <ul class="pagination">
+          
+        </ul>
+      </nav>
+
+    </section>
+    
 
       <div id="modalEditar" class="modal" tabindex="-1">
         <div class="modal-dialog">
@@ -84,54 +92,53 @@
               <h5 class="modal-title">Editar Produto</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              <form id="edit-produto">
+            <form id="edit-produto" novalidate>
+              <div class="modal-body">
                 <div class="row">
-                    <input type="hidden" id="modal-id">
-                    <div class="col-6 mb-3">
-                        <label for="modal-nome">Nome</label>
-                        <input type="text" class="form-control" id="modal-nome">
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label>Categoria</label>
-                        <select class="input-categoria form-control">
-                            <option selected>Selecione</option>
-                        </select>
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="modal-marca">Marca</label>
-                        <input type="text" class="form-control" id="modal-marca">
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="modal-fabricante">Fabricante</label>
-                        <input type="text" class="form-control" id="modal-fabricante">
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="modal-preco">Preço</label>
-                        <input type="number" class="form-control" id="modal-preco">
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="modal-estoque">Estoque</label>
-                        <input type="number" class="form-control" id="modal-estoque">
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="modal-sobre">Sobre</label>
-                        <textarea type="text" class="form-control" id="modal-sobre"></textarea>
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="modal-img">Imagem</label>
-                        <div class="input-group mb-3">
-                            <input type="file" class="form-control" id="modal-img">
-                          </div>
-                    </div>
+                  <input type="hidden" id="modal-id" name="id">
+                  <div class="col-6 mb-3">
+                      <label for="modal-nome">Nome</label>
+                      <input type="text" class="form-control" id="modal-nome" name="nome">
+                  </div>
+                  <div class="col-6 mb-3">
+                      <label>Categoria</label>
+                      <select class="input-categoria form-control" name="categoriaId">
+                          <option selected>Selecione</option>
+                      </select>
+                  </div>
+                  <div class="col-6 mb-3">
+                      <label for="modal-marca">Marca</label>
+                      <input type="text" class="form-control" id="modal-marca" name="marca">
+                  </div>
+                  <div class="col-6 mb-3">
+                      <label for="modal-fabricante">Fabricante</label>
+                      <input type="text" class="form-control" id="modal-fabricante" name="fabricante"> 
+                  </div>
+                  <div class="col-6 mb-3">
+                      <label for="modal-preco">Preço</label>
+                      <input type="number" class="form-control" id="modal-preco" name="preco">
+                  </div>
+                  <div class="col-6 mb-3">
+                      <label for="modal-estoque">Estoque</label>
+                      <input type="number" class="form-control" id="modal-estoque" name="estoque">
+                  </div>
+                  <div class="col-6 mb-3">
+                      <label for="modal-sobre">Sobre</label>
+                      <textarea type="text" class="form-control" id="modal-sobre" name="sobre"></textarea>
+                  </div>
+                  <div class="col-6 mb-3">
+                      <label for="modal-img">Imagem</label>
+                      <div class="input-group mb-3">
+                          <input type="file" class="form-control" id="modal-img">
+                        </div>
+                  </div>
                 </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button id="btn-editar-submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+              </div>
             </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
-            </div>
-          </form>
           </div>
         </div>
       </div>

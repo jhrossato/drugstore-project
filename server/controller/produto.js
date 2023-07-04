@@ -10,6 +10,17 @@ async function get(req, res) {
   }
 }
 
+async function getAndCountAll(req, res) {
+  try {
+    console.log('getAndCountAll');
+    const {page, size} = req.query;
+    const produtos = await repository.getAndCountAll(page, size);
+    produtos != null ? res.status(200).json(produtos) : res.status(204).json(produtos)
+  } catch (error) {
+    res.status(500).send('Internal Server Error: ' + error.message)
+  }
+}
+
 async function getByCategoriaName(req, res) {
     try {
       console.log('CHEGOU GET BY NAME')
@@ -70,5 +81,6 @@ module.exports = {
   getById,
   post,
   put,
-  deleteProduto
+  deleteProduto,
+  getAndCountAll
 }

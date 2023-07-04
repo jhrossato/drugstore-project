@@ -20,6 +20,22 @@ async function getAll() {
     }
   }
 
+  async function getAndCountAll(page, size) {
+    try {
+      console.log('PULANDO '+page * size)
+      return await Produto.findAndCountAll({
+        limit: size,
+        offset: page * size,
+        include: {
+          model: Categoria,
+          as: 'categoria'
+        }
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
   async function getByCategoriaId(id) {
     try {
       return await Produto.findAll({
@@ -64,6 +80,7 @@ async function getAll() {
   }
 
   async function update(produto) {
+    console.log(produto)
     try {
       await Produto.update(produto, {
         where:{
@@ -97,5 +114,6 @@ async function getAll() {
     getById,
     create,
     update,
-    deleteProduto
+    deleteProduto,
+    getAndCountAll
   }

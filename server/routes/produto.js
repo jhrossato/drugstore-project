@@ -4,6 +4,7 @@ const produtoController = require('../controller/produto');
 const authController = require('../controller/authentication');
 
 router.get('/', produtoController.get);
+router.get('/paginate', produtoController.getAndCountAll);
 router.get('/:categoria([a-z]+)', produtoController.getByCategoriaName);
 router.get('/:id', produtoController.getById);
 router.post('/', authController.verifyToken, produtoController.post);
